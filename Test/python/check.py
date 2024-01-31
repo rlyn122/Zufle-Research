@@ -1,10 +1,10 @@
 import pickle
 import numpy
 
-with open('nPmatrix_data.pkl', 'rb') as file:
+with open('nPmatrix20_data.pkl', 'rb') as file:
     nP = pickle.load(file)
 
-with open('nQmatrix_data.pkl', 'rb') as file:
+with open('nQmatrix20_data.pkl', 'rb') as file:
     nQ = pickle.load(file)
 
 R_est = numpy.dot(nP,nQ.T)

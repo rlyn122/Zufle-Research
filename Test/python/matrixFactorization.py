@@ -80,7 +80,7 @@ N = len(R)
 # M: num of Locations
 M = len(R[0])
 # Num of Features
-K = 50
+K = 20
 
  
 #randomize P and Q variables
@@ -93,10 +93,10 @@ nP, nQ = matrix_factorization(R, P, Q, K)
 print(f"nP: {nP}")
 print(f"nQ: {nQ}")
 
-with open('nPmatrix100_data.pkl', 'wb') as file:
+with open('nPmatrix20_data.pkl', 'wb') as file:
     pickle.dump(nP, file)
 
-with open('nQmatrix100_data.pkl', 'wb') as file:
+with open('nQmatrix20_data.pkl', 'wb') as file:
     pickle.dump(nQ, file)
 
 nR = numpy.dot(nP, nQ.T)
