@@ -1,6 +1,12 @@
 #From https://towardsdatascience.com/recommendation-system-matrix-factorization-d61978660b4b
 
 import numpy
+import pickle
+
+with open('matrix_data.pkl', 'rb') as file:
+    loaded_matrix = pickle.load(file)
+
+print(loaded_matrix)
 
 def matrix_factorization(R, P, Q, K, steps=5000, alpha=0.0002, beta=0.02):
     '''
@@ -15,6 +21,7 @@ def matrix_factorization(R, P, Q, K, steps=5000, alpha=0.0002, beta=0.02):
     Q = Q.T
 
     for step in range(steps):
+        print(step)
         for i in range(len(R)):
             for j in range(len(R[i])):
                 if R[i][j] > 0:
@@ -22,10 +29,6 @@ def matrix_factorization(R, P, Q, K, steps=5000, alpha=0.0002, beta=0.02):
                     eij = R[i][j] - numpy.dot(P[i,:],Q[:,j])
 
                     for k in range(K):
-                        print("i: ", i)
-                        print("j: ",j)
-                        print("k: ",k)
-                        print(Q)
                         # calculate gradient with a and beta parameter
                         P[i][k] = P[i][k] + alpha * (2 * eij * Q[k][j] - beta * P[i][k])
                         Q[k][j] = Q[k][j] + alpha * (2 * eij * P[i][k] - beta * Q[k][j])
@@ -54,7 +57,7 @@ def matrix_factorization(R, P, Q, K, steps=5000, alpha=0.0002, beta=0.02):
     return P, Q.T
 
 
-R = [
+"""R = [
 
      [5,3,0,1],
 
@@ -68,16 +71,16 @@ R = [
     
      [2,1,3,0],
 
-    ]
+    ]"""
 
-R = numpy.array(R)
+R = loaded_matrix
 
 # N: num of User
 N = len(R)
-# M: num of Movie
+# M: num of Locations
 M = len(R[0])
 # Num of Features
-K = 3
+K = 50
 
  
 #randomize P and Q variables
@@ -87,7 +90,15 @@ Q = numpy.random.rand(M,K)
  
 nP, nQ = matrix_factorization(R, P, Q, K)
 
-print("nP: {nP}")
-print("nQ: {nP}")
+print(f"nP: {nP}")
+print(f"nQ: {nQ}")
+
+with open('nPmatrix100_data.pkl', 'wb') as file:
+    pickle.dump(nP, file)
+
+with open('nQmatrix100_data.pkl', 'wb') as file:
+    pickle.dump(nQ, file)
 
 nR = numpy.dot(nP, nQ.T)
+
+print(nR)
