@@ -6,8 +6,9 @@ The goal of this research is to identify possible areas of optimization for loca
 
 __Algorithms Explored:__ 
     
-  - Collaborative Filtering 
+  - Collaborative Filtering
       - Singular Value Decomposition (SVD)
+
   Learning Algorithms
     - Stochastic Gradient Descent (SGD)
     - Alternating Least Square (ALS)
