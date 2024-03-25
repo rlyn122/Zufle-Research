@@ -16,6 +16,8 @@ from numpy import matrix
 import pickle
 print("Setup Complete\n")
 
+file_path = ('../data/NYfiltered.pkl')
+
 def zero_out(matrix, n=5):
     """
     For each row in the matrix, set up to 'max_zeros' non-zero entries to zero.
@@ -43,7 +45,7 @@ def zero_out(matrix, n=5):
 print("\nLoading Data\n")
 #load original data
 """
-df1 = pd.read_csv('../data/NYfiltered.csv')
+df1 = pd.read_csv(file_path)
 print(df1)
 
 print('Dataset 1 shape: {}'.format(df1.shape))
@@ -60,7 +62,7 @@ print(df_matrix.shape)
 """
 
 #load dataframe
-with open('../data/pkl/NYfiltered.pkl', 'rb') as file:
+with open(file_path, 'rb') as file:
     R = pickle.load(file)
 print(R.shape) 
 R1 = R
