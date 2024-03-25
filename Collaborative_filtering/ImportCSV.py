@@ -3,8 +3,9 @@ import numpy as np
 import pandas as pd
 import pickle
 
-csv_file_path = "NYfiltered.csv"
-outputPath = './pkl/'+csv_file_path[:-4]+'.pkl'
+csv_file_path = "../data/NYfiltered.csv"
+outputPath = csv_file_path[:-4]+'.pkl'
+
 
 # Read CSV data into a list of lists
 data = []
@@ -12,6 +13,7 @@ with open(csv_file_path, 'r') as file:
     csv_reader = csv.reader(file)
     for row in csv_reader:
         data.append(row)
+
 
 # Convert the data list into a NumPy array
 matrix = np.array(data)
