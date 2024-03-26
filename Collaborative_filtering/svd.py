@@ -1,18 +1,28 @@
 import numpy as np
 import pickle
+from sklearn.metrics import mean_squared_error
 from sklearn.utils.extmath import randomized_svd
+from mf import MF
 
-with open('../data/pkl/NYfiltered.pkl', 'rb') as file:
+
+with open('../data/test.pkl', 'rb') as file:
     R = pickle.load(file)
 
-K = 10
 
-u,s,vh = randomized_svd(R,K,n_iter = 10)
+mf = MF(R, K=10, alpha=0.01, beta=0.01, iterations=1000)
+print("Creating a test set\n")
+R1 = MF.zero_out(mf,3)
 
-S = np.zeros((u.shape[1], vh.shape[0]))
-np.fill_diagonal(S,s)
 
-predicted = np.dot(u,np.dot(S,vh))
+print("Original:\n",R)
+print("Test Set:\n",R1)
+mse = mean_squared_error(R1, R)
+rmsei = mse**0.5
+print("RMSEi=",rmsei)
 
-with open("./output/svd.pkl", 'wb') as file:
-    pickle.dump(predicted, file)
+Rf = mf.svd()
+mf.evaluation(R,Rf)
+
+
+# with open("./output/svd.pkl", 'wb') as file:
+#     pickle.dump(predicted, file)
