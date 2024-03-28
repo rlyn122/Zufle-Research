@@ -10,18 +10,8 @@ with open('../data/test.pkl', 'rb') as file:
 
 
 mf = MF(R, K=10, alpha=0.01, beta=0.01, iterations=1000)
-print("Creating a test set\n")
-R1 = MF.zero_out(mf,3)
-
-
-print("Original:\n",R)
-print("Test Set:\n",R1)
-mse = mean_squared_error(R1, R)
-rmsei = mse**0.5
-print("RMSEi=",rmsei)
-
 Rf = mf.svd()
-mf.evaluation(R,Rf)
+Rf = mf.evaluation()
 
 
 # with open("./output/svd.pkl", 'wb') as file:
