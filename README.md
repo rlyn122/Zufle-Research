@@ -6,7 +6,7 @@ The goal of this research is to identify possible areas of optimization for loca
 
 __Algorithms Explored:__ 
     
-  - Collaborative Filtering
+  - Collaborative Filtering/Matrix Factorization
       - Singular Value Decomposition (SVD)
 
   Learning Algorithms
