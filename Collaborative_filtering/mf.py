@@ -1,16 +1,6 @@
-import pandas as pd
 import numpy as np
-import math
-import re
-import sklearn
-from scipy.sparse import csr_matrix
-import matplotlib.pyplot as plt
-import seaborn as sns
 from sklearn.metrics import mean_squared_error
-from surprise import Reader, Dataset
-sns.set_style("darkgrid")
 from cvxpy import *
-from numpy import matrix
 from sklearn.utils.extmath import randomized_svd
 
 
@@ -34,6 +24,9 @@ class MF():
         self.alpha = alpha
         self.beta = beta
         self.iterations = iterations
+        print("Creating a test set\n")
+        self.Rt = MF.zero_out(self,5)
+
 
     def calculate_sparsity(self):
         """
@@ -49,7 +42,8 @@ class MF():
         """
         svd does SVD decomposition on self.R and returns the predicted full matrix
         """
-        u,s,vh = randomized_svd(self.R,self.K,self.iterations)
+
+        u, s, vh = randomized_svd(self.Rt, n_components=self.K, n_iter=self.iterations)
         S = np.zeros((u.shape[1], vh.shape[0]))
         np.fill_diagonal(S,s)
 
@@ -63,7 +57,7 @@ class MF():
 
         # Create a list of training samples
         self.samples = [
-            (i, j, self.R[i, j])
+            (i, j, self.Rt[i, j])
             for i in range(self.num_users)
             for j in range(self.num_items)
             if self.R[i, j] > 0
@@ -76,9 +70,6 @@ class MF():
             self.sgd()
             mse = self.mse()
             training_process.append((i, mse))
-            #if (i+1) % 100 == 0:
-            #    print("Iteration: %d ; error = %.4f" % (i+1, mse))
-
         return training_process
 
     def mse(self):
