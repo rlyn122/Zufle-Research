@@ -21,7 +21,7 @@ __Files__
 
 __Algorithms Explored:__ 
     
-  - Collaborative Filtering
+  - Collaborative Filtering/Matrix Factorization
       - Singular Value Decomposition (SVD)
   Learning Algorithms
     - Stochastic Gradient Descent (SGD)
